@@ -19,17 +19,17 @@ export default {
       type: String,
       required: true
     },
-    listindex: {
+    listIndex: {
       type: Number,
       required: true
     }
   },
-  method: {
+  methods: {
     // クリック時にremoveListが起動
     // store/index.jsに定義したremovelistアクションを呼び出す。
     removeList: function(){
       if(confirm("本当にこのリストを削除しますか？")){
-        this.$store.dispatch('removeList', { listIndex: this.listIndex })
+        this.$store.dispatch('removelist', { listIndex: this.listIndex })
       }
     }
   },
