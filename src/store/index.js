@@ -37,10 +37,18 @@ const store = new Vuex.Store({
     addlist(state, payload) {
       state.lists.push({ title: payload.title, cards: [] })
     },
+    // actionsから受け取ったリストのインデックスを使ってspliceでリストを削除
+    removelist(state, payload) {
+      state.lists.splice(payload.listIndex, 1)
+    }
   },
   actions: {
     addlist(context, payload){
       context.commit('addlist', payload)
+    },
+    // mutationsのremovelistメソッドをcommitで実行
+    removelist(context, payload){
+      context.commit('removelist', payload)
     },
   },
   getters: {
