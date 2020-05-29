@@ -4,11 +4,19 @@
       <p class="list-title">{{ title }}</p>
       <div class="deletelist" @click="removeList">×</div>
     </div>
+    <!-- listIndexをCardAddに渡す -->
+    <card-add :listIndex="listIndex" />
   </div>
 </template>
 
 <script>
+import CardAdd from './CardAdd'
+
 export default {
+  // 使用するコンポーネント を記述
+  components: {
+    CardAdd
+  },
   // propsプロパティ
   // propsには親から受け取るデータを定義
   // 受け取ったデータはdataと同じようにアクセスできる
