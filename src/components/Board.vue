@@ -4,7 +4,7 @@
       my Trello
     </header>
     <main>
-      <p class="info-line">All: 0 tasks</p>
+      <p class="info-line">All: {{ totalCardCount }} tasks</p>
       <div class="list-index">
         <!-- Listコンポーネントの呼び出し。必要なデータを渡している。 -->
         <!-- List.vueではここで渡された値をpropsで受け取る -->
@@ -42,6 +42,11 @@ export default {
     ...mapState([
       'lists'
     ]),
+    totalCardCount() {
+      // 全体のカードの総数はストアのstateで管理しているcardsの数を合計して返す
+      // stateのデータから算出したものをコンポーネントで取得したい時にgettersを使用する！！
+      return this.$store.getters.totalCardCount
+    }
   }
 }
 </script>
