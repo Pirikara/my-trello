@@ -66,7 +66,16 @@ const store = new Vuex.Store({
     }
   },
   getters: {
+    // gettersは第一引数にstate, 第二引数に他のgettersを受け取ることができる
+    // 他のgettersで算出したものからさらに算出したいと言う実装もできる
 
+    totalCardCount(state) {
+      let count = 0
+      // 全体のカードの枚数を返す実装
+      // listsの一つ一つがcontentとなり、それぞれのcardsの枚数をcountに足していく
+      state.lists.map(content => count += content.cards.length)
+      return count
+    }
   }
 })
 
