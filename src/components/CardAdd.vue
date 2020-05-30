@@ -10,7 +10,7 @@
     />
     <button type="submit"
             class="add-button"
-            v-id="isEditing || bodyExists"
+            v-if="isEditing || bodyExists"
     >
       Add
     </button>

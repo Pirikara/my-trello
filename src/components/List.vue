@@ -4,6 +4,14 @@
       <p class="list-title">{{ title }}</p>
       <div class="deletelist" @click="removeList">×</div>
     </div>
+    <!-- Cardコンポーネント を呼び出し、Cardコンポーネントに必要なデータをバインディングで渡す -->
+    <!-- cardsデータをList.vueは持っていないので、Boaed.vueからpropsで受け取る -->
+    <card v-for="(item, index) in cards"
+          :body="item.body"
+          :key="item.id"
+          :cardIndex="index"
+          :listIndex="listIndex"
+    />
     <!-- listIndexをCardAddに渡す -->
     <card-add :listIndex="listIndex" />
   </div>
@@ -11,11 +19,13 @@
 
 <script>
 import CardAdd from './CardAdd'
+import Card from './Card'
 
 export default {
   // 使用するコンポーネント を記述
   components: {
-    CardAdd
+    CardAdd,
+    Card
   },
   // propsプロパティ
   // propsには親から受け取るデータを定義
@@ -25,6 +35,10 @@ export default {
   props: {
     title: {
       type: String,
+      required: true
+    },
+    cards: {
+      type: Array,
       required: true
     },
     listIndex: {
