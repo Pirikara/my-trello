@@ -10,11 +10,13 @@
         <!-- List.vueではここで渡された値をpropsで受け取る -->
         <!-- v-forとv-bind:keyは必ず一緒 -->
         <!-- バインドさせたコンポーネントにデータを受けわたす -->
+        <!-- List.vueから来たchangeイベントをハンドルし、movingCardイベントを発火 -->
         <list v-for="(item, index) in lists"
               :key="item.id"
               :title="item.title"
               :cards="item.cards"
               :listIndex="index"
+              @change="movingCard"
          />
         <list-add />
       </div>
@@ -46,6 +48,13 @@ export default {
       // 全体のカードの総数はストアのstateで管理しているcardsの数を合計して返す
       // stateのデータから算出したものをコンポーネントで取得したい時にgettersを使用する！！
       return this.$store.getters.totalCardCount
+    }
+  },
+  methods: {
+    // changeイベントから発火したmovingCard
+    // ストアのactionsを呼び出す
+    movingCard: function() {
+      this.$store.dispatch('updateList', { lists: this.lists })
     }
   }
 }
