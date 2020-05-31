@@ -5,7 +5,11 @@
     </header>
     <main>
       <p class="info-line">All: {{ totalCardCount }} tasks</p>
-      <div class="list-index">
+      <!-- computedのlistsにバインド -->
+      <draggable :list="lists"
+                 class="list-index"
+                 @end="movingList"
+      >
         <!-- Listコンポーネントの呼び出し。必要なデータを渡している。 -->
         <!-- List.vueではここで渡された値をpropsで受け取る -->
         <!-- v-forとv-bind:keyは必ず一緒 -->
@@ -17,14 +21,15 @@
               :cards="item.cards"
               :listIndex="index"
               @change="movingCard"
-         />
+        />
         <list-add />
-      </div>
+      </draggable>
     </main>
   </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 import ListAdd from './ListAdd.vue' 
 import List from './List'
 import { mapState } from 'vuex'
@@ -32,7 +37,8 @@ import { mapState } from 'vuex'
 export default {
   components: {
     ListAdd,
-    List
+    List,
+    draggable
   },
   computed: {
     // stateのリストデータlistsを取得
@@ -54,6 +60,9 @@ export default {
     // changeイベントから発火したmovingCard
     // ストアのactionsを呼び出す
     movingCard: function() {
+      this.$store.dispatch('updateList', { lists: this.lists })
+    },
+    movingList: function() {
       this.$store.dispatch('updateList', { lists: this.lists })
     }
   }
